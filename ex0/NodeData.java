@@ -3,10 +3,17 @@ package ex0;
 import java.util.Collection;
 
 public class NodeData implements node_data {
+    private int currentNode;
+    private static int nodeCount;
 
+    public NodeData() {
+        this.currentNode = nodeCount;
+        nodeCount++;
+    }
     @Override
     public int getKey() {
-        return 0;
+
+        return this.currentNode;
     }
 
     @Override
