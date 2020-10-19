@@ -21,13 +21,14 @@ public class Graph_Ex0_Test {
             g0.addNode(n);
         }
         System.out.println(g0.getNode(1).getKey());
+        g0.connect(1,2);
+        g0.getNode(1).getNi();
 
-
-        while(g0.edgeSize() < e_size) {
-            int a = nextRnd(0,v_size);
-            int b = nextRnd(0,v_size);
-            g0.connect(a,b);
-        }
+//        while(g0.edgeSize() < e_size) {
+//            int a = nextRnd(0,v_size);
+//            int b = nextRnd(0,v_size);
+//            g0.connect(a,b);
+//        }
         // System.out.println(g0);
     }
 
