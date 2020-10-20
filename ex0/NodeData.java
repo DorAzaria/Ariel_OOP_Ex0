@@ -1,69 +1,91 @@
 package ex0;
 
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Vector;
 
-public class NodeData implements node_data {
-    private int currentNode;
-    private static int nodeCount;
-    private Vector<node_data> myNeighbors;
+public class NodeData implements node_data{
 
+    private static int node_counter = 0;
+    private final int node_id;
+    private Vector<node_data> neighbors;
+    private Hashtable<Integer,node_data> distances;
+    private String node_info;
+    private int tag;
+
+    // a default constructor
     public NodeData() {
-        this.currentNode = nodeCount;
-        nodeCount++;
-        myNeighbors = new Vector<node_data>();
-        System.out.println("creates a new node : " + nodeCount );
+        this.node_id = node_counter++;
+        this.neighbors = new Vector<node_data>();
+        this.node_info = "";
+        this.tag = 404;
+        this.distances = new Hashtable<Integer,node_data>();
     }
+
+    @Override
+    public Hashtable<Integer,node_data> getDistances() {
+        return this.distances;
+    }
+
     @Override
     public int getKey() {
-        return this.currentNode;
+        return this.node_id;
     }
 
     @Override
     public Collection<node_data> getNi() {
-        // convert the contents into string
-        myNeighbors.toString();
-        for (node_data number : myNeighbors) {
-            System.out.println("the neighbors of " + getKey() + " are: " + number.getKey() + " ");
-        }
-        return this.myNeighbors;
+        return this.neighbors;
     }
 
     @Override
     public boolean hasNi(int key) {
-        if(myNeighbors.contains(key))
-            return true;
-
+        for(node_data itA : neighbors) {
+            if(itA.getKey() == key) { // if b is in a's list
+                for(node_data itB : itA.getNi()) {
+                    if(itB.getKey() == this.node_id) { // and if a is in b's list
+                        return true; // a <--> b
+                    }
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public void addNi(node_data t) {
-        myNeighbors.add(t);
+        if(t != null) {
+            this.neighbors.add(t);
+            t.getNi().add(this);
+        }
     }
 
     @Override
     public void removeNode(node_data node) {
+        if(this.neighbors.contains(node))  // if a contains b
+            this.neighbors.remove(node); // remove b from a
 
+        if(node.getNi().contains(this))  // if b contains a
+            node.getNi().remove(this); // remove a from b
+                // the edge (a,b) has been removed.
     }
 
     @Override
     public String getInfo() {
-        return null;
+        return this.node_info;
     }
 
     @Override
     public void setInfo(String s) {
-
+        this.node_info+=s;
     }
 
     @Override
     public int getTag() {
-        return 0;
+        return this.tag;
     }
 
     @Override
     public void setTag(int t) {
-
+        this.tag = t;
     }
 }

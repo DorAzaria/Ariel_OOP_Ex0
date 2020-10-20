@@ -1,6 +1,7 @@
 package ex0;
 
 import java.util.Collection;
+import java.util.Hashtable;
 
 /**
  * This interface represents the set of operations applicable on a 
@@ -11,6 +12,7 @@ import java.util.Collection;
 public interface node_data {
 	/**
 	 * Return the key (id) associated with this node.
+	 * Note: each node_data should have a unique key.
 	 * @return
 	 */
 	public int getKey();
@@ -20,7 +22,7 @@ public interface node_data {
 	public Collection<node_data> getNi();
 
     /**
-     * return true iff this<==>key are adjacent</==>
+     * return true iff this<==>key are adjacent, as an edge between them.
 	 * @param key
      * @return
      */
@@ -29,8 +31,8 @@ public interface node_data {
 	public void addNi(node_data t);
 
     /**
-     * Removes the edge this-key
-	 * @param key
+     * Removes the edge this-key,
+	 * @param node
 	 */
 	public void removeNode(node_data node);
 	/**
@@ -55,4 +57,6 @@ public interface node_data {
 	 * @param t - the new value of the tag
 	 */
 	public void setTag(int t);
+
+	public Hashtable<Integer,node_data> getDistances();
 }
