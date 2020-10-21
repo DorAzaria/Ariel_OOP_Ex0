@@ -34,12 +34,20 @@ public class NodeData implements node_data{
     }
 
     @Override
+    public void setNewConnection() {
+        this.connections = new Vector<node_data>();
+        this.connections.add(this);
+    }
+
+    @Override
     public int getKey() {
         return this.node_id;
     }
 
     @Override
     public Collection<node_data> getNi() {
+        for(node_data node : neighbors) {
+        }
         return this.neighbors;
     }
 
@@ -65,12 +73,26 @@ public class NodeData implements node_data{
 
     @Override
     public void removeNode(node_data node) {
-        if(this.neighbors.contains(node))  // if a contains b
+        if(this.neighbors.contains(node))
             this.neighbors.remove(node); // remove b from a
 
-        if(node.getNi().contains(this))  // if b contains a
-            node.getNi().remove(this); // remove a from b
-                // the edge (a,b) has been removed.
+            // the edge (a,b) has been removed.
+            if(this.connections.contains(node)) {
+                this.connections.remove(node);
+            }
+
+            this.setNewConnection();
+            for(node_data run : this.neighbors) {
+                recursiveConnection(this,run,0);
+            }
+    }
+
+    @Override
+    public void recursiveConnection(node_data main, node_data run, int steps) {
+            main.getConnections().add(run);
+            if(run.getNi().isEmpty()) {
+                return;
+            }
     }
 
     @Override

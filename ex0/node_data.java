@@ -60,4 +60,6 @@ public interface node_data {
 
 	public Vector<node_data> getConnections();
 	public void setConnection(Vector<node_data> other);
+	public void setNewConnection();
+	public void recursiveConnection(node_data main, node_data run, int steps);
 }

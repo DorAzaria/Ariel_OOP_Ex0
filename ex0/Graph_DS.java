@@ -58,8 +58,20 @@ public class Graph_DS implements graph{
         return getNode(node_id).getConnections();
     }
 
+
+    /**
+     * Delete the node (with the given ID) from the graph -
+     * and removes all edges which starts or ends at this node.
+     * This method should run in O(n), |V|=n, as all the edges should be removed.
+     * @return the data of the removed node (null if none).
+     * @param key
+     */
     @Override
     public node_data removeNode(int key) {
+
+        if(getNode(key)!=null) {
+            getNode(key).getNi().forEach((n) -> n.removeNode(getNode(key)));
+        }
         return null;
     }
 
