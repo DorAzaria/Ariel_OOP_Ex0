@@ -1,7 +1,7 @@
 package ex0;
 
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * This interface represents the set of operations applicable on a 
@@ -57,4 +57,7 @@ public interface node_data {
 	 * @param t - the new value of the tag
 	 */
 	public void setTag(int t);
+
+	public Vector<node_data> getConnections();
+	public void setConnection(Vector<node_data> other);
 }

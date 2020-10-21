@@ -11,7 +11,8 @@ public class myTest {
         }
 
         g0.connect(1,2);
-//        g0.connect(1,4);
-//        g0.connect(2,3);
+        g0.connect(1,4);
+        g0.connect(2,3);
+
     }
 }

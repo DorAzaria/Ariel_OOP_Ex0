@@ -4,13 +4,11 @@ import java.util.*;
 
 public class Graph_DS implements graph{
 
-    private Hashtable<Integer,node_data> nodes;
-    private Hashtable<Integer,Hashtable<Integer,node_data>> edges;
+    private Vector<node_data> nodes;
 
     // a default constructor
     public Graph_DS() {
-        nodes = new Hashtable<Integer, node_data>();
-        edges = new Hashtable<Integer,Hashtable<Integer,node_data>>();
+        nodes = new Vector<node_data>();
     }
 
     @Override
@@ -24,7 +22,7 @@ public class Graph_DS implements graph{
 
     @Override
     public boolean hasEdge(int node1, int node2) {
-        if(edges.get(node1).get(node2) != null)
+        if(getNode(node1).hasNi(node2))
             return true;
 
         return false;
@@ -33,7 +31,7 @@ public class Graph_DS implements graph{
     @Override
     public void addNode(node_data n) {
         if(n != null) {
-            nodes.put(n.getKey(), n);
+            nodes.add(n);
         }
     }
 
@@ -41,17 +39,23 @@ public class Graph_DS implements graph{
     public void connect(int node1, int node2) {
         if(nodes.contains(getNode(node1)) && nodes.contains(getNode(node2))) {
                 getNode(node1).addNi(getNode(node2));
+                getNode(node2).setConnection(getNode(node1).getConnections());
+                getNode(node2).getConnections().add(getNode(node2));
+
+            System.out.print("the nodes : " + node1 + " and " + node2 + " are now neighbors and connected to: ");
+            getNode(node1).getConnections().forEach((n) -> System.out.print(n.getKey() + " "));
+            System.out.println();
         }
     }
 
     @Override
     public Collection<node_data> getV() {
-        return null;
+        return nodes;
     }
 
     @Override
     public Collection<node_data> getV(int node_id) {
-        return null;
+        return getNode(node_id).getConnections();
     }
 
     @Override
