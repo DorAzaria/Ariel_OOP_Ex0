@@ -1,7 +1,6 @@
 package ex0;
 
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Vector;
 
 public class NodeData implements node_data{
@@ -9,7 +8,6 @@ public class NodeData implements node_data{
     private static int node_counter = 0;
     private final int node_id;
     private Vector<node_data> neighbors;
-    private Hashtable<Integer,node_data> distances;
     private String node_info;
     private int tag;
 
@@ -19,13 +17,8 @@ public class NodeData implements node_data{
         this.neighbors = new Vector<node_data>();
         this.node_info = "";
         this.tag = 404;
-        this.distances = new Hashtable<Integer,node_data>();
     }
 
-    @Override
-    public Hashtable<Integer,node_data> getDistances() {
-        return this.distances;
-    }
 
     @Override
     public int getKey() {

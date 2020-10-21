@@ -57,6 +57,4 @@ public interface node_data {
 	 * @param t - the new value of the tag
 	 */
 	public void setTag(int t);
-
-	public Hashtable<Integer,node_data> getDistances();
 }
