@@ -5,10 +5,14 @@ import java.util.*;
 public class Graph_DS implements graph{
 
     private Vector<node_data> nodes;
+    private int no_nodes;
+    private int no_edges;
 
     // a default constructor
     public Graph_DS() {
         nodes = new Vector<node_data>();
+        no_nodes = 0;
+        no_edges = 0;
     }
 
     @Override
@@ -32,6 +36,7 @@ public class Graph_DS implements graph{
     public void addNode(node_data n) {
         if(n != null) {
             nodes.add(n);
+            no_nodes++;
         }
     }
 
@@ -45,6 +50,7 @@ public class Graph_DS implements graph{
             System.out.print("the nodes : " + node1 + " and " + node2 + " are now neighbors and connected to: ");
             getNode(node1).getConnections().forEach((n) -> System.out.print(n.getKey() + " "));
             System.out.println();
+            no_edges++;
         }
     }
 
@@ -70,24 +76,26 @@ public class Graph_DS implements graph{
     public node_data removeNode(int key) {
 
         if(getNode(key)!=null) {
+            no_nodes--;
             getNode(key).getNi().forEach((n) -> n.removeNode(getNode(key)));
+            return getNode(key);
         }
         return null;
     }
 
     @Override
     public void removeEdge(int node1, int node2) {
-
+        no_edges--;
     }
 
     @Override
     public int nodeSize() {
-        return 0;
+        return no_nodes;
     }
 
     @Override
     public int edgeSize() {
-        return 0;
+        return no_edges;
     }
 
     @Override

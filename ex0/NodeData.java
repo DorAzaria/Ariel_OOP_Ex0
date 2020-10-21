@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public class NodeData implements node_data{
 
-    private static int node_counter = 0;
+    private static int node_counter = 1;
     private int node_id;
     private Vector<node_data> neighbors;
     private Vector<node_data> connections;

@@ -33,7 +33,7 @@ public class Graph_Ex0_Test {
             int b = nextRnd(0,v_size);
             g0.connect(a,b);
         }
-       // System.out.println(g0);
+        System.out.println(g0);
     }
 //    public static void test2() {
 //        g0.removeEdge(9,3);
