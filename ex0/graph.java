@@ -17,7 +17,7 @@ public interface graph {
 	 */
 	public node_data getNode(int key);
 	/**
-	 * return the data of the edge (src,dest), null if none.
+	 * return true iff (if and only if) there is an edge between node1 and node2
 	 * Note: this method should run in O(1) time.
 	 * @param node1
 	 * @param node2
@@ -30,15 +30,15 @@ public interface graph {
 	 * @param n
 	 */
 	public void addNode(node_data n);
-/**
- * Connect an edge with weight w between node src to node dest.
- * Note: this method should run in O(1) time.
- * Note2: if the edge node1-node2 already exists - the the method simply does nothing.
- */
+	/**
+	 * Connect an edge between node1 and node2.
+	 * Note: this method should run in O(1) time.
+	 * Note2: if the edge node1-node2 already exists - the method simply does nothing.
+	 */
 	public void connect(int node1, int node2);
 	/**
 	 * This method return a pointer (shallow copy) for the
-	 * collection representing all the nodes in the graph. 
+	 * collection representing all the nodes in the graph.
 	 * Note: this method should run in O(1) time.
 	 * @return Collection<node_data>
 	 */
@@ -54,16 +54,15 @@ public interface graph {
 	 * Delete the node (with the given ID) from the graph -
 	 * and removes all edges which starts or ends at this node.
 	 * This method should run in O(n), |V|=n, as all the edges should be removed.
-	 * @return the data of the removed node (null if none). 
+	 * @return the data of the removed node (null if none).
 	 * @param key
 	 */
 	public node_data removeNode(int key);
 	/**
-	 * Delete the edge from the graph, 
+	 * Delete the edge from the graph,
 	 * Note: this method should run in O(1) time.
 	 * @param node1
 	 * @param node2
-	 * @return the data of the removed edge (null if none).
 	 */
 	public void removeEdge(int node1, int node2);
 	/** return the number of vertices (nodes) in the graph.
@@ -71,16 +70,16 @@ public interface graph {
 	 * @return
 	 */
 	public int nodeSize();
-	/** 
+	/**
 	 * return the number of edges (undirectional graph).
 	 * Note: this method should run in O(1) time.
 	 * @return
 	 */
 	public int edgeSize();
-/**
- * return the Mode Count - for testing changes in the graph.
- * Any change in the inner state of the graph should cause an increment in the ModeCount
- * @return
- */
+	/**
+	 * return the Mode Count - for testing changes in the graph.
+	 * Any change in the inner state of the graph should cause an increment in the ModeCount
+	 * @return
+	 */
 	public int getMC();
 }
