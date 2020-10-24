@@ -2,104 +2,111 @@ package ex0;
 
 import java.util.*;
 
-public class Graph_DS implements graph{
+public class Graph_DS implements graph {
 
-    private Vector<node_data> nodes;
-    private int no_nodes;
-    private int no_edges;
+    private HashMap<Integer,node_data> nodes;
+    private int nodes_size , edges_size , mc;
 
-    // a default constructor
     public Graph_DS() {
-        nodes = new Vector<node_data>();
-        no_nodes = 0;
-        no_edges = 0;
+        nodes = new HashMap<Integer,node_data>();
+        nodes_size = 0;
+        edges_size = 0;
+        mc = 0;
     }
-
     @Override
     public node_data getNode(int key) {
-        if(nodes.get(key) == null) {
-            System.out.println("node isn't exist.");
-            return null;
-        }
-        return nodes.get(key);
+        // O(1), checks whether the node exists.
+        // O(1), get the node from the structure.
+        return nodes.containsKey(key) ? nodes.get(key) : null;
     }
-
     @Override
     public boolean hasEdge(int node1, int node2) {
-        if(getNode(node1).hasNi(node2))
-            return true;
+
+        if(nodes.containsKey(node1) && nodes.containsKey(node2))
+            if(getNode(node1).hasNi(node2) && getNode(node2).hasNi(node1)) // O(1).
+                return true;
 
         return false;
     }
-
     @Override
     public void addNode(node_data n) {
-        if(n != null) {
-            nodes.add(n);
-            no_nodes++;
-        }
+        nodes.put(n.getKey(),n); // O(1)
+        nodes_size++;
+        mc++;
     }
-
     @Override
     public void connect(int node1, int node2) {
-        if(nodes.contains(getNode(node1)) && nodes.contains(getNode(node2))) {
-                getNode(node1).addNi(getNode(node2));
-                getNode(node2).setConnection(getNode(node1).getConnections());
-                getNode(node2).getConnections().add(getNode(node2));
+        if(getNode(node1) == null || getNode(node2) ==null) // O(1) , if it's none.
+            return;
 
-            System.out.print("the nodes : " + node1 + " and " + node2 + " are now neighbors and connected to: ");
-            getNode(node1).getConnections().forEach((n) -> System.out.print(n.getKey() + " "));
-            System.out.println();
-            no_edges++;
-        }
+        if(getNode(node1).hasNi(node2) ) // O(1), if the edge exists.
+            return;
+
+        // a new edge
+        getNode(node1).addNi(getNode(node2)); // O(1) , A <--> B.
+        getNode(node2).addNi(getNode(node1)); // O(1) , B <--> A.
+        edges_size++;
+        mc++;
     }
-
     @Override
     public Collection<node_data> getV() {
-        return nodes;
+        return nodes.values(); // returns a Collection view of the values contained in this map.
     }
 
     @Override
     public Collection<node_data> getV(int node_id) {
-        return getNode(node_id).getConnections();
+        return getNode(node_id).getNi();
     }
 
-
-    /**
-     * Delete the node (with the given ID) from the graph -
-     * and removes all edges which starts or ends at this node.
-     * This method should run in O(n), |V|=n, as all the edges should be removed.
-     * @return the data of the removed node (null if none).
-     * @param key
-     */
     @Override
     public node_data removeNode(int key) {
+        if(nodes.containsKey(key)){
 
-        if(getNode(key)!=null) {
-            no_nodes--;
-            getNode(key).getNi().forEach((n) -> n.removeNode(getNode(key)));
-            return getNode(key);
+            if(getNode(key).getNi().size() == 0) {
+                nodes_size--;
+                mc++;
+                return nodes.remove(key); // O(1)
+            }
+
+            HashSet<Integer> temp = new HashSet<Integer>();
+            for(node_data runner : getNode(key).getNi()){ // O(n) , copying the keys to a new set
+                temp.add(runner.getKey()); // O(1)
+            }
+
+            for(Integer runner : temp) { // O(n) , deleting the neighbors.
+                removeEdge(key,runner); // O(1)
+            }
+            nodes_size--;
+            mc++;
+            return nodes.remove(key); // O(1)
         }
         return null;
     }
 
     @Override
     public void removeEdge(int node1, int node2) {
-        no_edges--;
+        if(nodes.containsKey(node1) && nodes.containsKey(node2)) {
+            if(getNode(node1).hasNi(node2) && getNode(node2).hasNi(node1)) {
+                getNode(node1).removeNode(getNode(node2)); // O(1)
+                getNode(node2).removeNode(getNode(node1)); // O(1)
+                edges_size--;
+                mc++;
+            }
+        }
     }
 
     @Override
     public int nodeSize() {
-        return no_nodes;
+        return this.nodes_size;
     }
 
     @Override
     public int edgeSize() {
-        return no_edges;
+        return this.edges_size;
     }
 
     @Override
     public int getMC() {
-        return 0;
+        return this.mc;
     }
 }

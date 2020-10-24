@@ -17,8 +17,8 @@ public class Graph_Ex0_Test {
     public static void main(String[] args) {
         test1();
         System.out.println(g0);
-//        test2();
-//        System.out.println(g0);
+        test2();
+        System.out.println(g0);
 //        test3();
 //        System.out.println(g0);
     }
@@ -35,14 +35,14 @@ public class Graph_Ex0_Test {
         }
         System.out.println(g0);
     }
-//    public static void test2() {
-//        g0.removeEdge(9,3);
-//        g0.removeEdge(9,3);
-//        g0.removeNode(0);
-//        g0.removeNode(0);
-//        g0.removeNode(2);
-//        g0.removeNode(8);
-//    }
+    public static void test2() {
+        g0.removeEdge(9,3);
+        g0.removeEdge(9,3);
+        g0.removeNode(0);
+        g0.removeNode(0);
+        g0.removeNode(2);
+        g0.removeNode(8);
+    }
 //    public static void test3() {
 //        ga = new Graph_Algo(g0);
 //        g1 = ga.copy();
