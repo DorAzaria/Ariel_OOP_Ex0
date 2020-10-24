@@ -17,12 +17,12 @@ public class Graph_DS implements graph {
     public node_data getNode(int key) {
         // O(1), checks whether the node exists.
         // O(1), get the node from the structure.
-        return nodes.containsKey(key) ? nodes.get(key) : null;
+        return nodes.containsKey(key) ? nodes.get(key) : null; // O(1)
     }
     @Override
     public boolean hasEdge(int node1, int node2) {
 
-        if(nodes.containsKey(node1) && nodes.containsKey(node2))
+        if(nodes.containsKey(node1) && nodes.containsKey(node2)) // O(1)
             if(getNode(node1).hasNi(node2) && getNode(node2).hasNi(node1)) // O(1).
                 return true;
 
@@ -60,22 +60,19 @@ public class Graph_DS implements graph {
 
     @Override
     public node_data removeNode(int key) {
-        if(nodes.containsKey(key)){
+        if(nodes.containsKey(key)){ // O(1)
 
-            if(getNode(key).getNi().size() == 0) {
+            if(getNode(key).getNi().size() == 0) { // O(1)
                 nodes_size--;
                 mc++;
                 return nodes.remove(key); // O(1)
             }
 
-            HashSet<Integer> temp = new HashSet<Integer>();
-            for(node_data runner : getNode(key).getNi()){ // O(n) , copying the keys to a new set
-                temp.add(runner.getKey()); // O(1)
+
+            for(node_data runner : getNode(key).getNi()){ // O(N)
+                removeEdge(key,runner.getKey()); // O(1)
             }
 
-            for(Integer runner : temp) { // O(n) , deleting the neighbors.
-                removeEdge(key,runner); // O(1)
-            }
             nodes_size--;
             mc++;
             return nodes.remove(key); // O(1)
@@ -85,8 +82,8 @@ public class Graph_DS implements graph {
 
     @Override
     public void removeEdge(int node1, int node2) {
-        if(nodes.containsKey(node1) && nodes.containsKey(node2)) {
-            if(getNode(node1).hasNi(node2) && getNode(node2).hasNi(node1)) {
+        if(nodes.containsKey(node1) && nodes.containsKey(node2)) { // O(1)
+            if(getNode(node1).hasNi(node2) && getNode(node2).hasNi(node1)) { // O(1)
                 getNode(node1).removeNode(getNode(node2)); // O(1)
                 getNode(node2).removeNode(getNode(node1)); // O(1)
                 edges_size--;
