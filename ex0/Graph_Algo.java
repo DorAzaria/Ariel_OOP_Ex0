@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Graph_Algo implements graph_algorithms {
     private graph my_graph;
-    private int disconnectivity_toggle = 0;
     private int connectionCounter = 0;
 
     public Graph_Algo(graph g) {
@@ -86,7 +85,7 @@ public class Graph_Algo implements graph_algorithms {
         }
 
         if(path.size() == 0) {
-            disconnectivity_toggle = 1;
+            return null;
         }
         return path;
     }
@@ -94,8 +93,7 @@ public class Graph_Algo implements graph_algorithms {
     @Override
     public int shortestPathDist(int src, int dest) {
         List<node_data> list = BFS(src,dest);
-        if(this.disconnectivity_toggle == 1) {
-            this.disconnectivity_toggle = 0;
+        if(list == null) {
             return -1;
         }
         return list.size();
@@ -103,16 +101,14 @@ public class Graph_Algo implements graph_algorithms {
 
     @Override
     public List<node_data> shortestPath(int src, int dest) {
-        if(this.disconnectivity_toggle == 1) {
-            this.disconnectivity_toggle = 0;
+        List<node_data> list = BFS(src,dest);
+        if(list == null)
             return null;
-        }
-        return BFS(src,dest);
+        return list;
     }
 
     private void reset() {
         this.connectionCounter = 0;
-        this.disconnectivity_toggle = 0;
         Collection<node_data> nodes = this.my_graph.getV();
         for(node_data runner : nodes)
             runner.setTag(-1);
