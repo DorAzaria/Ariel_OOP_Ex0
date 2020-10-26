@@ -67,8 +67,6 @@ public class Graph_DS implements graph {
                 mc++;
                 return nodes.remove(key); // O(1)
             }
-
-
             for(node_data runner : getNode(key).getNi()){ // O(N)
                 removeEdge(key,runner.getKey()); // O(1)
             }

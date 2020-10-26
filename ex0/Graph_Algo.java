@@ -1,62 +1,120 @@
 package ex0;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Graph_Algo implements graph_algorithms {
     private graph my_graph;
+    private int disconnectivity_toggle = 0;
+    private int connectionCounter = 0;
 
     public Graph_Algo(graph g) {
         init(g);
     }
+    public Graph_Algo() { }
 
     @Override
     public void init(graph g) {
-        my_graph = g;
+        this.my_graph = g;
     }
 
     @Override
     public graph copy() {
         graph new_graph = new Graph_DS();
 
-        // copy nodes
-        for(node_data node : my_graph.getV())
+            // copy nodes
+            for(node_data node : my_graph.getV()) {
             new_graph.addNode(node);
-
-        // copy neighbors
-        for(node_data node : my_graph.getV())
-            for(node_data neighbors : my_graph.getV(node.getKey()))
-                new_graph.connect(node.getKey(),neighbors.getKey());
-
+                // copy neighbors
+                for (node_data neighbors : my_graph.getV(node.getKey())) {
+                    new_graph.addNode(neighbors);
+                    new_graph.connect(node.getKey(), neighbors.getKey());
+                }
+        }
         return new_graph;
     }
 
     @Override
     public boolean isConnected() { // poor and temp function algo O(N^2)
-        HashSet<node_data> check = new HashSet<node_data>();
-        int nodes_check = 0;
+        if(this.my_graph.nodeSize() >= 2 && this.my_graph.edgeSize() == 0)
+            return false;
 
+        reset();
         for(node_data node : my_graph.getV()) {
-            check.add(node);
-            nodes_check++;
-            for(node_data neighbors : my_graph.getV(node.getKey())) {
-                if(!check.contains(neighbors)) {
-                    check.add(neighbors);
-                    nodes_check++;
-                }
+            if(node.getTag() == -1){
+                node.setTag(1);
+                connectionCounter++;
+            }
+            for(node_data runner : node.getNi()) {
+                if(runner.getTag() == -1) {
+                    connectionCounter++;
+                    runner.setTag(1);
                 }
             }
+        }
 
-        return nodes_check == my_graph.nodeSize();
+        return connectionCounter == my_graph.nodeSize();
+    }
+
+    private List<node_data> BFS(int src, int dest) {
+
+        LinkedList<node_data> queue = new LinkedList<node_data>();
+        LinkedList<node_data> path = new LinkedList<node_data>();
+        if(src == dest) return path;
+        this.reset();
+
+        queue.add(this.my_graph.getNode(src));
+
+        while(!queue.isEmpty()) {
+            node_data current = queue.poll();
+            Iterator<node_data> runner = current.getNi().iterator();
+            while (runner.hasNext()) {
+                node_data next_node = runner.next();
+
+                if(next_node.getTag() == -1) {
+                    next_node.setTag(current.getKey());
+
+                    if(next_node == this.my_graph.getNode(dest)) {
+                        while(next_node != this.my_graph.getNode(src)) {
+                            path.addFirst(next_node);
+                            next_node = this.my_graph.getNode(next_node.getTag());
+                        }
+                        return path;
+                    }
+                    queue.add(next_node);
+                }
+            }
+        }
+
+        if(path.size() == 0) {
+            disconnectivity_toggle = 1;
+        }
+        return path;
     }
 
     @Override
     public int shortestPathDist(int src, int dest) {
-        return 0;
+        List<node_data> list = BFS(src,dest);
+        if(this.disconnectivity_toggle == 1) {
+            this.disconnectivity_toggle = 0;
+            return -1;
+        }
+        return list.size();
     }
 
     @Override
     public List<node_data> shortestPath(int src, int dest) {
-        return null;
+        if(this.disconnectivity_toggle == 1) {
+            this.disconnectivity_toggle = 0;
+            return null;
+        }
+        return BFS(src,dest);
+    }
+
+    private void reset() {
+        this.connectionCounter = 0;
+        this.disconnectivity_toggle = 0;
+        Collection<node_data> nodes = this.my_graph.getV();
+        for(node_data runner : nodes)
+            runner.setTag(-1);
     }
 }

@@ -29,7 +29,7 @@ public class NodeData implements node_data {
 
     @Override
     public boolean hasNi(int key) {
-        return neighbors.contains(key);
+        return this.neighbors.contains(new NodeData());
     }
 
     @Override
