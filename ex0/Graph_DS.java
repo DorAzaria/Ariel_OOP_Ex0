@@ -9,18 +9,14 @@ public class Graph_DS implements graph {
      * Graph_DS is basically a HashMap contains all the nodes in the graph.
      * K - an Integer key as same as the key of each node.
      * V - a node_data value.*/
-    public Graph_DS() {
-        nodes = new HashMap<Integer,node_data>();
-    }
+    public Graph_DS() { nodes = new HashMap<Integer,node_data>(); }
     /** @param key - the node_id
      * @return the node_data by the node_id, null if none.
      * Returns a specific node from the graph by retrieving a node via a key
      * from the HashMap DS.
      * Time Complexity - O(1)*/
     @Override
-    public node_data getNode(int key) {
-        return nodes.containsKey(key) ? nodes.get(key) : null;
-    }
+    public node_data getNode(int key) { return nodes.containsKey(key) ? nodes.get(key) : null; }
     /** @param node1
      * @param node2
      * @return true or false
@@ -60,17 +56,13 @@ public class Graph_DS implements graph {
      * Returns a Collection view of the values contained in HashMap.
      * Time Complexity - O(1)*/
     @Override
-    public Collection<node_data> getV() {
-        return nodes.values(); //O(1)
-    }
+    public Collection<node_data> getV() { return nodes.values(); } //O(1)
     /** @param node_id
      * @return Collection<node_data>
      * Returns a list of neighbors of a given node_id contained within a new ArrayList.
      * Time Complexity - O(1)*/
     @Override
-    public Collection<node_data> getV(int node_id) {
-        return getNode(node_id).getNi(); //O(1)
-    }
+    public Collection<node_data> getV(int node_id) { return getNode(node_id).getNi(); } //O(1)
     /** @return the data of the removed node (null if none).
      * @param key
      * Delete the node from the nodes HashMap DS and also remove it
@@ -104,19 +96,13 @@ public class Graph_DS implements graph {
     /** @return the number of nodes from the map counted during its build and delete functions.
      * Time Complexity - O(1).*/
     @Override
-    public int nodeSize() {
-        return this.nodes_size;
-    }
+    public int nodeSize() { return this.nodes_size; }
     /** @return the number of edges from the map counted during its build and delete functions.
      * Time Complexity - O(1).*/
     @Override
-    public int edgeSize() {
-        return this.edges_size;
-    }
+    public int edgeSize() { return this.edges_size; }
     /** @return the number of actions from the map counted during its build and delete functions.
      * Time Complexity - O(1).*/
     @Override
-    public int getMC() {
-        return this.mc;
-    }
+    public int getMC() { return this.mc; }
 }
