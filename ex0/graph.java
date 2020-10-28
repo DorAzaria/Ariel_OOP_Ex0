@@ -30,11 +30,11 @@ public interface graph {
 	 * @param n
 	 */
 	public void addNode(node_data n);
-/**
- * Connect an edge between node1 and node2.
- * Note: this method should run in O(1) time.
- * Note2: if the edge node1-node2 already exists - the method simply does nothing.
- */
+	/**
+	 * Connect an edge between node1 and node2.
+	 * Note: this method should run in O(1) time.
+	 * Note2: if the edge node1-node2 already exists - the method simply does nothing.
+	 */
 	public void connect(int node1, int node2);
 	/**
 	 * This method return a pointer (shallow copy) for the
@@ -44,8 +44,8 @@ public interface graph {
 	 */
 	public Collection<node_data> getV();
 	/**
-	 * This method return a collection of  the
-	 * collection representing all the nodes connected to node_id
+	 * This method returns a collection containing all the
+	 * nodes connected to node_id
 	 * Note: this method should run in O(1) time.
 	 * @return Collection<node_data>
 	 */
@@ -70,16 +70,16 @@ public interface graph {
 	 * @return
 	 */
 	public int nodeSize();
-	/** 
+	/**
 	 * return the number of edges (undirectional graph).
 	 * Note: this method should run in O(1) time.
 	 * @return
 	 */
 	public int edgeSize();
-/**
- * return the Mode Count - for testing changes in the graph.
- * Any change in the inner state of the graph should cause an increment in the ModeCount
- * @return
- */
+	/**
+	 * return the Mode Count - for testing changes in the graph.
+	 * Any change in the inner state of the graph should cause an increment in the ModeCount
+	 * @return
+	 */
 	public int getMC();
 }

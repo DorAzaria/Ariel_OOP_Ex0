@@ -16,21 +16,23 @@ public interface node_data {
 	 */
 	public int getKey();
 
-    /**
+	/**
 	 * This method returns a collection with all the Neighbor nodes of this node_data */
 	public Collection<node_data> getNi();
 
-    /**
-     * return true iff this<==>key are adjacent, as an edge between them.
+	/**
+	 * return true iff this<==>key are adjacent, as an edge between them.
 	 * @param key
-     * @return
-     */
+	 * @return
+	 */
 	public boolean hasNi(int key);
-	/** This method adds the node_data (t) to this node_data.*/
+	/** This method adds the node_data (t) to this node_data.
+	 * This method is wrongly designed! and was used mainly for educational example - to be improved in Ex1
+	 * */
 	public void addNi(node_data t);
 
-    /**
-     * Removes the edge this-key,
+	/**
+	 * Removes the edge this-node,
 	 * @param node
 	 */
 	public void removeNode(node_data node);
@@ -45,13 +47,13 @@ public interface node_data {
 	 */
 	public void setInfo(String s);
 	/**
-	 * Temporal data (aka color: e,g, white, gray, black) 
-	 * which can be used be algorithms 
+	 * Temporal data (aka color: e,g, white, gray, black)
+	 * which can be used be algorithms
 	 * @return
 	 */
 	public int getTag();
-	/** 
-	 * Allow setting the "tag" value for temporal marking an node - common 
+	/**
+	 * Allow setting the "tag" value for temporal marking an node - common
 	 * practice for marking by algorithms.
 	 * @param t - the new value of the tag
 	 */
