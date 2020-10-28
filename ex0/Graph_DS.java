@@ -56,7 +56,7 @@ public class Graph_DS implements graph {
      * Returns a Collection view of the values contained in HashMap.
      * Time Complexity - O(1)*/
     @Override
-    public Collection<node_data> getV() { return nodes.values(); } //O(1)
+    public Collection<node_data> getV() { return new ArrayList<>(nodes.values()); } //O(1)
     /** @param node_id
      * @return Collection<node_data>
      * Returns a list of neighbors of a given node_id contained within a new ArrayList.
