@@ -27,6 +27,26 @@ public class Graph_Algo implements graph_algorithms {
         }
         return new_graph;
     }
+    /**@return true IFF there is a valid path from every node to each
+     * This method is solved with the BFS algorithm.
+     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    @Override
+    public boolean isConnected() { return connection() == my_graph.nodeSize(); }
+
+    /**@param src - start node
+     * @param dest - end (target) node
+     * @return the length of the shortest path between src to dest
+     * return the length between two given key nodes solved with the BFS algorithm.
+     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    @Override
+    public int shortestPathDist(int src, int dest) { return path(src,dest) == null ? -1 : path(src,dest).size()-1; }
+    /**@param src - start node
+     * @param dest - end (target) node
+     * @return the shortest path between src to dest - as an ordered List of nodes
+     * solved with the BFS algorithm.
+     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    @Override
+    public List<node_data> shortestPath(int src, int dest) { return path(src,dest) == null ? null : path(src,dest); }
     /**@param new_graph
      * @param node
      * Adding a new node_data to new_graph initialized with node's fields.
@@ -43,20 +63,14 @@ public class Graph_Algo implements graph_algorithms {
             new_graph.connect(node.getKey(),neighbor.getKey());
         }
     }
-    /**@return true IFF there is a valid path from every node to each
-     * This method is solved with the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
-    @Override
-    public boolean isConnected() { return connection() == my_graph.nodeSize(); }
     /**@return the nodes counted in the current connected graph.
      * This method is under the boolean isConnected() method.
      * using the BFS algorithm.
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
     private int connection() {
-        ArrayList<node_data> list = new ArrayList<>(my_graph.getV());
-        if(list.isEmpty()) return 0;
+        if(!my_graph.getV().iterator().hasNext()) return 0;
+        node_data node = my_graph.getV().iterator().next();
         LinkedList<node_data> queue = new LinkedList<>();
-        node_data node = list.get(0);
         resetTags();
         int counter = 1;
         markAsVisited(node);
@@ -69,49 +83,43 @@ public class Graph_Algo implements graph_algorithms {
                     markAsVisited(neighbors);
                     queue.add(neighbors);
                 }
-            }
+        }
         return counter;
     }
-    /**@param src - start node
-     * @param dest - end (target) node
-     * @return the length of the shortest path between src to dest
-     * return the length between two given key nodes solved with the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
-    @Override
-    public int shortestPathDist(int src, int dest) { return BFS(src,dest) == null ? -1 : BFS(src,dest).size()-1; }
-    /**@param src - start node
-     * @param dest - end (target) node
-     * @return the shortest path between src to dest - as an ordered List of nodes
-     * solved with the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
-    @Override
-    public List<node_data> shortestPath(int src, int dest) { return BFS(src,dest) == null ? null : BFS(src,dest); }
     /**@param src
      * @param dest
+     * @return a LinkedList that contains all the nodes that are connected from src to dest.
+     * it also checks all the edge cases to optimize the run time.
+     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    private List<node_data> path(int src, int dest) {
+        if(src == dest) return new LinkedList<>();
+        if(my_graph.getNode(src) != null && my_graph.getNode(dest) != null) {
+            return BFS(my_graph.getNode(src), my_graph.getNode(dest));
+        }
+        return null;
+    }
+    /**@param source
+     * @param destination
      * @return a LinkedList that contains all the nodes that are connected from src to dest.
      * The current node remembers its previous visited node by setting the key value
      * of the previous node inside the tag of the current node.
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
-    private List<node_data> BFS(int src, int dest) {
+    private List<node_data> BFS(node_data source, node_data destination) {
         LinkedList<node_data> queue = new LinkedList<>(), path = new LinkedList<>();
-        if(src == dest) return path;
-        node_data source = my_graph.getNode(src), destination = my_graph.getNode(dest);
-        if(source != null && destination != null) {
-            this.resetTags();
-            queue.add(source);
-            markAsVisited(source);
-            while (!queue.isEmpty()) {
-                node_data current = queue.poll();
-                for (node_data next_node : current.getNi()) {
-                    if (!isVisited(next_node)) {
-                        setPrevious(next_node, current);
-                        if (next_node == destination) return makeAPath(path, source, next_node, destination);
-                        else queue.add(next_node);
-                    }
+        this.resetTags();
+        queue.add(source);
+        markAsVisited(source);
+        while (!queue.isEmpty()) {
+            node_data current = queue.poll();
+            for (node_data next_node : current.getNi()) {
+                if (!isVisited(next_node)) {
+                    setPrevious(next_node, current);
+                    if (next_node == destination) return makeAPath(path, source, next_node, destination);
+                    else queue.add(next_node);
                 }
             }
         }
-        return null;
+        return path;
     }
     /**@param path
      * @param src

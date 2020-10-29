@@ -86,7 +86,7 @@ public class Graph_DS implements graph {
     @Override
     public void removeEdge(int node1, int node2) {
         node_data n1 = getNode(node1) , n2 = getNode(node2);
-        if(nodes.containsKey(node1)&&nodes.containsKey(node2)&&n1.hasNi(node2)) { // O(1)
+        if(hasEdge(node1,node2)) { // O(1)
                 n1.removeNode(n2); // O(1)
                 n2.removeNode(n1); // O(1)
                 edges_size--;

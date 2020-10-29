@@ -208,7 +208,6 @@ public class Graph_Ex0_Test2 {
             }
             i++;
         }
-
         test("test_n(a) ",b, true);
         b = ga.isConnected();
         //  System.out.println(g);
