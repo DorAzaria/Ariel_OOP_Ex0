@@ -96,6 +96,8 @@ public class Graph_Algo implements graph_algorithms {
     /**@param src
      * @param dest
      * @return a LinkedList that contains all the nodes that are connected from src to dest.
+     * The current node remembers its previous visited node by setting the key value
+     * of the previous node inside the tag of the current node.
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
     private List<node_data> BFS(int src, int dest) {
         LinkedList<node_data> queue = new LinkedList<node_data>();
