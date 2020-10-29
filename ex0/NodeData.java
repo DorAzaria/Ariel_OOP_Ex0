@@ -21,7 +21,7 @@ public class NodeData implements node_data {
         this.info = "";
         this.tag = -1;
     }
-    /** @param key
+    /**@param key
      * @param t
      * @param i
      * A parametric constructor designed for deep-copy methods.*/
@@ -44,24 +44,17 @@ public class NodeData implements node_data {
      * @return true IFF (this node)<==>(key node) are adjacent.
      * Time Complexity - O(1).*/
     @Override
-    public boolean hasNi(int key) {
-        return neighbors.containsKey(key)&&neighbors.get(key).getNi().contains(this); }
+    public boolean hasNi(int key) { return neighbors.containsKey(key)&&neighbors.get(key).getNi().contains(this); }
     /**@param t
      * Adds a node_data to this neighbors list.
      * Time Complexity - O(1).*/
     @Override
-    public void addNi(node_data t) {
-        if(!this.neighbors.containsValue(t))
-            this.neighbors.put(t.getKey(), t);
-    }
+    public void addNi(node_data t) { if(!neighbors.containsKey(t.getKey())) neighbors.put(t.getKey(), t); }
     /**@param node
      * removes the given node from this neighbors HashMap.
      * Time Complexity - O(1).*/
     @Override
-    public void removeNode(node_data node) {
-        if(this.neighbors.containsValue(node))
-            this.neighbors.remove(node.getKey());
-    }
+    public void removeNode(node_data node) { if(neighbors.containsValue(node)) neighbors.remove(node.getKey()); }
     /**@return this node's information.
      * Time Complexity - O(1).*/
     @Override
