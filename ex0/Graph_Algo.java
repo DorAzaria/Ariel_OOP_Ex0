@@ -39,8 +39,6 @@ public class Graph_Algo implements graph_algorithms {
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
     @Override
     public boolean isConnected() { // poor and temp function algo O(N^2)
-        if(this.my_graph.nodeSize() >= 2 && this.my_graph.edgeSize() == 0)
-            return false;
         ArrayList<node_data> list = new ArrayList<>(my_graph.getV());
         if(list.isEmpty())
             return true;
