@@ -55,7 +55,7 @@ public class Graph_Algo implements graph_algorithms {
         LinkedList<node_data> queue = new LinkedList<node_data>();
         markAsVisited(node);
         queue.add(node);
-        while(queue.size() != 0) {
+        while(!queue.isEmpty()) {
             node = queue.poll();
             for(node_data neighbors : node.getNi())
                 if(!isVisited(neighbors)) {
