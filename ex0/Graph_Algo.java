@@ -38,7 +38,7 @@ public class Graph_Algo implements graph_algorithms {
      * This method is solved with the BFS algorithm.
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
     @Override
-    public boolean isConnected() { // poor and temp function algo O(N^2)
+    public boolean isConnected() {
         ArrayList<node_data> list = new ArrayList<>(my_graph.getV());
         if(list.isEmpty())
             return true;
@@ -53,14 +53,14 @@ public class Graph_Algo implements graph_algorithms {
         reset();
         int counter = 1;
         LinkedList<node_data> queue = new LinkedList<node_data>();
-        node.setTag(1);
+        markAsVisited(node);
         queue.add(node);
         while(queue.size() != 0) {
             node = queue.poll();
             for(node_data neighbors : node.getNi())
-                if (neighbors.getTag() == -1) {
+                if(!isVisited(neighbors)) {
                     counter++;
-                    neighbors.setTag(1);
+                    markAsVisited(neighbors);
                     queue.add(neighbors);
                 }
             }
@@ -98,26 +98,23 @@ public class Graph_Algo implements graph_algorithms {
      * of the previous node inside the tag of the current node.
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
     private List<node_data> BFS(int src, int dest) {
-        LinkedList<node_data> queue = new LinkedList<node_data>();
-        LinkedList<node_data> path = new LinkedList<node_data>();
+        LinkedList<node_data> queue = new LinkedList<node_data>(), path = new LinkedList<node_data>();
         if(src == dest) return path;
-        if(my_graph.getNode(src) == null || my_graph.getNode(dest) == null) return null;
+        node_data source = my_graph.getNode(src), destination = my_graph.getNode(dest);
         this.reset();
-        queue.add(this.my_graph.getNode(src));
-        this.my_graph.getNode(src).setTag(1);
+        queue.add(source);
+        markAsVisited(source);
 
         while(!queue.isEmpty()) {
             node_data current = queue.poll();
-            Iterator<node_data> runner = current.getNi().iterator();
-            while (runner.hasNext()) {
-                node_data next_node = runner.next();
-                if(next_node.getTag() == -1) {
-                    next_node.setTag(current.getKey());
-                    if(next_node.equals(this.my_graph.getNode(dest))) {
-                        path.addFirst(this.my_graph.getNode(dest));
-                        while(!next_node.equals(this.my_graph.getNode(src))) {
+            for(node_data next_node : current.getNi()) {
+                if(!isVisited(next_node)) {
+                    setPrevious(next_node,current);
+                    if(next_node == destination) {
+                        path.addFirst(destination);
+                        while(next_node != source) {
                             path.addFirst(next_node);
-                            next_node = this.my_graph.getNode(next_node.getTag());
+                            next_node = getPrevious(next_node);
                         }
                         return path;
                     }
@@ -132,8 +129,23 @@ public class Graph_Algo implements graph_algorithms {
      * if it's 1 or any other value except -1 so it signed as visited.
      * and if the value is -1 so it's signed as unvisited.
      * Time Complexity - O(N), |Vertex| = N.*/
-    private void reset() {
-        for(node_data runner : this.my_graph.getV())
-            runner.setTag(-1);
-    }
+    private void reset() { for(node_data runner : this.my_graph.getV()) runner.setTag(-1); }
+    /**@param node
+     * @return true if this node was marked by a tag (visited).
+     * Time Complexity - O(1).*/
+    private boolean isVisited(node_data node) { return node.getTag() != -1; }
+    /**@param node
+     * marks the node as a visited node.
+     * Time Complexity - O(1).*/
+    private void markAsVisited(node_data node) { node.setTag(1);}
+    /**@param node
+     * @return the previous visited node.
+     * each tag's node is marked by the key of its previous iterated node.
+     * Time Complexity - O(1)*/
+    private node_data getPrevious(node_data node) { return my_graph.getNode(node.getTag());}
+    /**@param src
+     * @param des
+     * set a tag in src node, the tag value is the previous iterated node - des.
+     * Time Complexity - O(1)*/
+    private void setPrevious(node_data src, node_data des) { src.setTag(des.getKey());}
 }
