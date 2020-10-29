@@ -50,7 +50,7 @@ public class Graph_Algo implements graph_algorithms {
      * using the BFS algorithm.
      * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
     private int isConnected(node_data node) {
-        reset();
+        resetTags();
         int counter = 1;
         LinkedList<node_data> queue = new LinkedList<node_data>();
         markAsVisited(node);
@@ -101,7 +101,7 @@ public class Graph_Algo implements graph_algorithms {
         LinkedList<node_data> queue = new LinkedList<node_data>(), path = new LinkedList<node_data>();
         if(src == dest) return path;
         node_data source = my_graph.getNode(src), destination = my_graph.getNode(dest);
-        this.reset();
+        this.resetTags();
         queue.add(source);
         markAsVisited(source);
 
@@ -129,7 +129,7 @@ public class Graph_Algo implements graph_algorithms {
      * if it's 1 or any other value except -1 so it signed as visited.
      * and if the value is -1 so it's signed as unvisited.
      * Time Complexity - O(N), |Vertex| = N.*/
-    private void reset() { for(node_data runner : this.my_graph.getV()) runner.setTag(-1); }
+    private void resetTags() { for(node_data runner : this.my_graph.getV()) runner.setTag(-1); }
     /**@param node
      * @return true if this node was marked by a tag (visited).
      * Time Complexity - O(1).*/
