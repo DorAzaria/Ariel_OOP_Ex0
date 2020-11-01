@@ -174,7 +174,7 @@ public class Graph_Ex0_Test2 {
         g10.removeEdge(a2,a1);
         g10.removeNode(a2);
         g10.removeNode(a2);
-        System.out.println();
+        //   System.out.println();
         //    System.out.println(g10);
         int re = 9;
         test("test9(a) ", re, g10.nodeSize());
@@ -208,6 +208,7 @@ public class Graph_Ex0_Test2 {
             }
             i++;
         }
+
         test("test_n(a) ",b, true);
         b = ga.isConnected();
         //  System.out.println(g);

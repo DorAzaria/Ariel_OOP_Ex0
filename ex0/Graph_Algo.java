@@ -4,20 +4,27 @@ import java.util.*;
 
 public class Graph_Algo implements graph_algorithms {
     private graph my_graph;
-    /**@param g
-     * A parametric constructor.
-     * this constructor init the given graph on which this set of algorithms operates on.*/
+    /**
+     * A parametric constructor. <br>
+     * this constructor init the given graph on which this set of algorithms operates on.
+     * @param g
+     */
     public Graph_Algo(graph g) { init(g); }
     /**
-     * A default constructor.
-     * this constructor init the given graph on which this set of algorithms operates on.*/
+     * A default constructor. <br>
+     * this constructor init the given graph on which this set of algorithms operates on.
+     */
     public Graph_Algo() { this.my_graph = new Graph_DS(); }
-    /**@param g
-     * Init the graph on which this set of algorithms operates on.*/
+    /**
+     * Init the graph on which this set of algorithms operates on.
+     * @param g
+     */
     @Override
     public void init(graph g) { this.my_graph = g; }
-    /**@return a new deep-copied graph.
-     * Time Complexity - O(N^2), |Vertex|=N */
+    /**
+     * <strong>Time Complexity</strong> - O(N^2), |Vertex|=N.
+     * @return a new deep-copied graph.
+     */
     @Override
     public graph copy() {
         graph new_graph = new Graph_DS();
@@ -27,46 +34,60 @@ public class Graph_Algo implements graph_algorithms {
         }
         return new_graph;
     }
-    /**@return true IFF there is a valid path from every node to each
-     * This method is solved with the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    /**
+     * This method is solved with the BFS algorithm.<br>
+     * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+     * @return true IFF there is a valid path from every node to each
+     */
     @Override
     public boolean isConnected() { return connection() == my_graph.nodeSize(); }
-
-    /**@param src - start node
-     * @param dest - end (target) node
-     * @return the length of the shortest path between src to dest
-     * return the length between two given key nodes solved with the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    /**
+     * return the length between two given key nodes solved with the BFS algorithm.<br>
+     * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+     * @param src start node.
+     * @param dest end (target) node.
+     * @return the length of the shortest path between src to dest.
+     */
     @Override
     public int shortestPathDist(int src, int dest) { return path(src,dest) == null ? -1 : path(src,dest).size()-1; }
-    /**@param src - start node
+    /**
+     * Solved with the BFS algorithm. <br>
+     * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+     * @param src - start node
      * @param dest - end (target) node
      * @return the shortest path between src to dest - as an ordered List of nodes
-     * solved with the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+     */
     @Override
     public List<node_data> shortestPath(int src, int dest) { return path(src,dest) == null ? null : path(src,dest); }
-    /**@param new_graph
+    /**
+     * Adding a new node_data to new_graph initialized with node's fields.<br>
+     * <strong>Time Complexity</strong> - O(1).
+     * @param new_graph
      * @param node
-     * Adding a new node_data to new_graph initialized with node's fields.
-     * Time Complexity - O(1).*/
+     */
     private void copyNode(graph new_graph, node_data node) {
         new_graph.addNode(new NodeData(node.getKey(), node.getTag(), node.getInfo()));}
-    /**@param new_graph
+    /**
+     * Copy the neighbors to new_graph and connect them with the current node.<br>
+     * <strong>Time Complexity</strong> - O(N)
+     * @param new_graph
      * @param node
-     * Copy the neighbors to new_graph and connect them with the current node.
-     * Time Complexity - O(N)*/
+     */
     private void copyNeighbors(graph new_graph, node_data node) {
         for(node_data neighbor : node.getNi()) {
             if(new_graph.getNode(neighbor.getKey())==null) { copyNode(new_graph,neighbor); }
             new_graph.connect(node.getKey(),neighbor.getKey());
         }
     }
-    /**@return the nodes counted in the current connected graph.
-     * This method is under the boolean isConnected() method.
-     * using the BFS algorithm.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+    /**
+     * This method is under the boolean isConnected() method<br>
+     * using the BFS algorithm:<br>
+     * a queue contains a temp path of unvisited node, <br>
+     * I used a counter to count all the unvisited nodes from this connectivity, <br>
+     * each node is marked with a tag, 1 - visited, -1 - not visited.<br>
+     * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+     * @return the nodes counted in the current connected graph.
+     */
     private int connection() {
         if(!my_graph.getV().iterator().hasNext()) return 0;
         node_data node = my_graph.getV().iterator().next();
@@ -86,11 +107,14 @@ public class Graph_Algo implements graph_algorithms {
         }
         return counter;
     }
-    /**@param src
+    /**
+     * it checks all the edge cases to optimize the run time
+     * before using the BFS method if it's necessary.<br>
+     * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+     * @param src
      * @param dest
      * @return a LinkedList that contains all the nodes that are connected from src to dest.
-     * it also checks all the edge cases to optimize the run time.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+     */
     private List<node_data> path(int src, int dest) {
         if(src == dest) return new LinkedList<>();
         if(my_graph.getNode(src) != null && my_graph.getNode(dest) != null) {
@@ -98,12 +122,21 @@ public class Graph_Algo implements graph_algorithms {
         }
         return null;
     }
-    /**@param source
+    /**
+     * About the BFS algorithm: <br>
+     * I learned about this algorithm via YouTube videos,
+     * I wanted to make it useful by using the tags of each node. <br>
+     * Each current node remembers its previous visited node by setting the key value
+     * of its previous node inside the tag of the current node.<br>
+     * in other words, (node1)(tag 15)(key 22) <-- prev < -- (node2)(tag 22)(key 13).<br>
+     * I used a queue to contain a temp. path of the unvisited nodes from src to any node
+     * until we reach the dest node.<br>
+     * when we reach it we are sending the path and queue to makeAPath() method, more details found there.<br>
+     * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+     * @param source
      * @param destination
      * @return a LinkedList that contains all the nodes that are connected from src to dest.
-     * The current node remembers its previous visited node by setting the key value
-     * of the previous node inside the tag of the current node.
-     * Time Complexity - O(N+E), |Vertex| = N , |Edge| = E.*/
+     */
     private List<node_data> BFS(node_data source, node_data destination) {
         LinkedList<node_data> queue = new LinkedList<>(), path = new LinkedList<>();
         this.resetTags();
@@ -121,12 +154,14 @@ public class Graph_Algo implements graph_algorithms {
         }
         return path;
     }
-    /**@param path
+    /**
+     * <strong>Time Complexity</strong> - O(N).
+     * @param path
      * @param src
      * @param next
      * @param des
      * @return a LinkedList of node_data, it contains the path from source to destination.
-     * Time Complexity - O(N).*/
+     */
     private List<node_data> makeAPath(LinkedList<node_data> path,node_data src,node_data next,node_data des) {
         path.addFirst(des);
         while(next != src) {
@@ -135,28 +170,36 @@ public class Graph_Algo implements graph_algorithms {
         }
         return path;
     }
-    /**reset the tags from any value to number -1.
+    /**
+     * reset the tags from any value to number -1. <br>
      * this method is used in every method in this class
-     * if it's 1 or any other value except -1 so it signed as visited.
-     * and if the value is -1 so it's signed as unvisited.
-     * Time Complexity - O(N), |Vertex| = N.*/
+     * if it's 1 or any other value except -1 so it signed as visited.<br>
+     * and if the value is -1 so it's signed as unvisited.<br>
+     * <strong>Time Complexity</strong> - O(N), |Vertex| = N.
+     */
     private void resetTags() { for(node_data runner : this.my_graph.getV()) runner.setTag(-1);}
-    /**@param node
-     * @return true if this node was marked by a tag (visited).
-     * Time Complexity - O(1).*/
+    /**
+     * <strong>Time Complexity</strong> - O(1).
+     */
     private boolean isVisited(node_data node) { return node.getTag() != -1;}
-    /**@param node
-     * marks the node as a visited node.
-     * Time Complexity - O(1).*/
+    /**
+     * marks the node as a visited node.<br>
+     * <strong>Time Complexity</strong> - O(1).
+     * @param node
+     */
     private void markAsVisited(node_data node) { node.setTag(1);}
-    /**@param node
+    /**
+     * each tag's node is marked by the key of its previous iterated node.<br>
+     * <strong>Time Complexity</strong> - O(1)
+     * @param node
      * @return the previous visited node.
-     * each tag's node is marked by the key of its previous iterated node.
-     * Time Complexity - O(1)*/
+     */
     private node_data getPrevious(node_data node) { return my_graph.getNode(node.getTag());}
-    /**@param src
+    /**
+     * set a tag in src node, the tag value is the previous iterated node - des.<br>
+     * <strong>Time Complexity</strong> - O(1)
+     * @param src
      * @param des
-     * set a tag in src node, the tag value is the previous iterated node - des.
-     * Time Complexity - O(1)*/
+     */
     private void setPrevious(node_data src, node_data des) { src.setTag(des.getKey());}
 }
