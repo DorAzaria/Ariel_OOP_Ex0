@@ -73,10 +73,9 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
   a queue contains a temp path of unvisited node, <br>
   I used a counter to count all the unvisited nodes from this connectivity, <br>
   each node is marked with a tag, 1 - visited, -1 - not visited.<br>
-  <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+   * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
 * `private List<node_data> path(int src, int dest)` - it checks all the edge cases to optimize the run time
-  before using the BFS method if it's necessary.<br>  
-  returns a LinkedList that contains all the nodes that are connected from src to dest.
+  before using the BFS method if it's necessary. returns a LinkedList that contains all the nodes that are connected from src to dest.
   * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
 * `private List<node_data> BFS(node_data source, node_data destination)` 
   * About the BFS algorithm: <br>
