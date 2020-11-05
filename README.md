@@ -15,7 +15,7 @@ There are algorithms like duplication capability, connectivity test, shortest pa
   * NodeData.java -- NodeData implements node_data,each node has a unique key that's obtained serially by a static counter.<br><br>
   * Graph_Algo.java -- Graph_Algo implements graph_algorithms.java.<br><br>
 
-### NodeData methods
+## NodeData methods
 * `NodeData()`
 * `NodeData(int key,int t,String i)`
 * `int getKey()`
@@ -28,7 +28,7 @@ There are algorithms like duplication capability, connectivity test, shortest pa
 * `int getTag()`
 * `void setTag(int t)`
 
-### Graph_DS methods
+## Graph_DS methods
 this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `Graph_DS()` - A default constructor.
 * `node_data getNode(int key)` - Returns a specific node from the nodes list by the given key.
@@ -52,7 +52,7 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `int nodeSize()` - return the number of nodes in the graph.
 * `int edgeSize()` - return the number of edges in the graph.
 * `int getMC()` - return the number of actions from the map counted during its build and delete functions.
-### Graph_Algo
+## Graph_Algo
   activating algorithms methods for a given graph.
 * `Graph_Algo()` - A default constructor.
 * `void init(graph g)` - Init the graph on which this set of algorithms operates on.
