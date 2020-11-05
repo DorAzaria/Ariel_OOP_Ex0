@@ -52,7 +52,7 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `int nodeSize()` - return the number of nodes in the graph.
 * `int edgeSize()` - return the number of edges in the graph.
 * `int getMC()` - return the number of actions from the map counted during its build and delete functions.
-## Graph_Algo
+## Graph_Algo methods
   activating algorithms methods for a given graph.
 * `Graph_Algo()` - A default constructor.
 * `void init(graph g)` - Init the graph on which this set of algorithms operates on.
