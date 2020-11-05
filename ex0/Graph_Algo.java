@@ -75,8 +75,8 @@ public class Graph_Algo implements graph_algorithms {
      */
     private void copyNeighbors(graph new_graph, node_data node) {
         for(node_data neighbor : node.getNi()) {
-            if(new_graph.getNode(neighbor.getKey())==null) { copyNode(new_graph,neighbor); }
-            new_graph.connect(node.getKey(),neighbor.getKey());
+            if (new_graph.getNode(neighbor.getKey()) != null)
+                new_graph.connect(node.getKey(), neighbor.getKey());
         }
     }
     /**
