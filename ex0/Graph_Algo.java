@@ -68,7 +68,7 @@ public class Graph_Algo implements graph_algorithms {
     private void copyNode(graph new_graph, node_data node) {
         new_graph.addNode(new NodeData(node.getKey(), node.getTag(), node.getInfo()));}
     /**
-     * Copy the neighbors to new_graph and connect them with the current node.<br>
+     * connect the neighbors with the current node.<br>
      * <strong>Time Complexity</strong> - O(N)
      * @param new_graph
      * @param node
