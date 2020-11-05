@@ -8,13 +8,12 @@ a data structure infrastructure, algorithms and display system.
 There are algorithms like duplication capability, connectivity test, shortest path calculation (minimum number of edges) and finding the shortest path.
 
 ## File List
-  * graph.java  -- This interface represents an undirectional unweighted graph.<br><br>
-  * graph_algorithms.java -- This interface represents the "regular" Graph Theory algorithms.<br><br>
-  * node_data.java -- This interface represents the set of operations applicable on a node in a graph.<br><br>
-  * Graph_DS.java -- Graph_DS is basically a HashMap contains all the nodes in the graph + implements graph.java methods.<br><br>
-  * NodeData.java -- NodeData implements node_data,each node has a unique key that's obtained serially by a static counter.<br><br>
-  * Graph_Algo.java -- Graph_Algo implements graph_algorithms.java.<br><br>
-
+  * `graph.java`  -- This interface represents an undirectional unweighted graph.<br>
+  * `graph_algorithms.java` -- This interface represents the "regular" Graph Theory algorithms.<br>
+  * `node_data.java` -- This interface represents the set of operations applicable on a node in a graph.<br>
+  * `Graph_DS.java` -- Graph_DS is basically a HashMap contains all the nodes in the graph + implements graph.java methods.<br>
+  * `NodeData.java` -- NodeData implements node_data,each node has a unique key that's obtained serially by a static counter.<br><br>
+  * `Graph_Algo.java` -- Graph_Algo implements graph_algorithms.java.
 ## NodeData methods
 * `NodeData()`
 * `NodeData(int key,int t,String i)`
