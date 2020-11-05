@@ -97,4 +97,5 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `private node_data getPrevious(node_data node)`
 * `private void setPrevious(node_data src, node_data des)`
 ## Sources 
-https://youtu.be/oDqjPvD54Ss
+* BFS algorithm - https://youtu.be/oDqjPvD54Ss <br>
+* Introduction to Java Programming by Daniel Liang, 10th Edition, Chapter 28 - Graphs and Applications.
