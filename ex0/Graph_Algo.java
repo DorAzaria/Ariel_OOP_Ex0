@@ -156,9 +156,9 @@ public class Graph_Algo implements graph_algorithms {
     }
     /**
      * <strong>Time Complexity</strong> - O(N).
-     * @param path
-     * @param src
-     * @param next
+     * @param path a List<node_data> type.
+     * @param src the source node.
+     * @param next from destination.
      * @return a LinkedList of node_data, it contains the path from source to destination.
      */
     private List<node_data>  makeAPath(LinkedList<node_data> path,node_data src,node_data next) {
