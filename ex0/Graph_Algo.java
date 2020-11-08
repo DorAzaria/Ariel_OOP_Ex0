@@ -144,10 +144,10 @@ public class Graph_Algo implements graph_algorithms {
         markAsVisited(source);
         while (!queue.isEmpty()) {
             node_data current = queue.poll();
-            for (node_data next_node : current.getNi()) {
+            for(node_data next_node : current.getNi()) {
                 if (!isVisited(next_node)) {
                     setPrevious(next_node, current);
-                    if (next_node == destination) return makeAPath(path, source, next_node, destination);
+                    if (next_node == destination) return makeAPath(path, source, next_node);
                     else queue.add(next_node);
                 }
             }
@@ -159,15 +159,14 @@ public class Graph_Algo implements graph_algorithms {
      * @param path
      * @param src
      * @param next
-     * @param des
      * @return a LinkedList of node_data, it contains the path from source to destination.
      */
-    private List<node_data> makeAPath(LinkedList<node_data> path,node_data src,node_data next,node_data des) {
-        path.addFirst(des);
+    private List<node_data>  makeAPath(LinkedList<node_data> path,node_data src,node_data next) {
         while(next != src) {
             path.addFirst(next);
             next = getPrevious(next);
         }
+        path.addFirst(next);
         return path;
     }
     /**
