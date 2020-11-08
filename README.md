@@ -8,14 +8,13 @@ a data structure infrastructure, algorithms and display system.
 There are algorithms like duplication capability, connectivity test, shortest path calculation (minimum number of edges) and finding the shortest path.
 
 ## File List
-  * graph.java  -- This interface represents an undirectional unweighted graph.<br><br>
-  * graph_algorithms.java -- This interface represents the "regular" Graph Theory algorithms.<br><br>
-  * node_data.java -- This interface represents the set of operations applicable on a node in a graph.<br><br>
-  * Graph_DS.java -- Graph_DS is basically a HashMap contains all the nodes in the graph + implements graph.java methods.<br><br>
-  * NodeData.java -- NodeData implements node_data,each node has a unique key that's obtained serially by a static counter.<br><br>
-  * Graph_Algo.java -- Graph_Algo implements graph_algorithms.java.<br><br>
-
-### NodeData methods
+  * `graph.java`  -- This interface represents an undirectional unweighted graph.<br>
+  * `graph_algorithms.java` -- This interface represents the "regular" Graph Theory algorithms.<br>
+  * `node_data.java` -- This interface represents the set of operations applicable on a node in a graph.<br>
+  * `Graph_DS.java` -- Graph_DS is basically a HashMap contains all the nodes in the graph + implements graph.java methods.<br>
+  * `NodeData.java` -- NodeData implements node_data,each node has a unique key that's obtained serially by a static counter.<br><br>
+  * `Graph_Algo.java` -- Graph_Algo implements graph_algorithms.java.
+## NodeData methods
 * `NodeData()`
 * `NodeData(int key,int t,String i)`
 * `int getKey()`
@@ -28,7 +27,7 @@ There are algorithms like duplication capability, connectivity test, shortest pa
 * `int getTag()`
 * `void setTag(int t)`
 
-### Graph_DS methods
+## Graph_DS methods
 this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `Graph_DS()` - A default constructor.
 * `node_data getNode(int key)` - Returns a specific node from the nodes list by the given key.
@@ -52,7 +51,7 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `int nodeSize()` - return the number of nodes in the graph.
 * `int edgeSize()` - return the number of edges in the graph.
 * `int getMC()` - return the number of actions from the map counted during its build and delete functions.
-### Graph_Algo
+## Graph_Algo methods
   activating algorithms methods for a given graph.
 * `Graph_Algo()` - A default constructor.
 * `void init(graph g)` - Init the graph on which this set of algorithms operates on.
@@ -73,10 +72,9 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
   a queue contains a temp path of unvisited node, <br>
   I used a counter to count all the unvisited nodes from this connectivity, <br>
   each node is marked with a tag, 1 - visited, -1 - not visited.<br>
-  <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
+   * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
 * `private List<node_data> path(int src, int dest)` - it checks all the edge cases to optimize the run time
-  before using the BFS method if it's necessary.<br>  
-  returns a LinkedList that contains all the nodes that are connected from src to dest.
+  before using the BFS method if it's necessary. returns a LinkedList that contains all the nodes that are connected from src to dest.
   * <strong>Time Complexity</strong> - O(N+E), |Vertex| = N , |Edge| = E.
 * `private List<node_data> BFS(node_data source, node_data destination)` 
   * About the BFS algorithm: <br>
@@ -98,4 +96,5 @@ this class owns the nodes of the graph in a HashMap<Integer,node_data> nodes.
 * `private node_data getPrevious(node_data node)`
 * `private void setPrevious(node_data src, node_data des)`
 ## Sources 
-https://www.youtube.com/watch?v=oDqjPvD54Ss&t=371s&ab_channel=WilliamFiset
+* BFS algorithm - https://youtu.be/oDqjPvD54Ss <br>
+* Introduction to Java Programming by Daniel Liang, 10th Edition, Chapter 28 - Graphs and Applications.
